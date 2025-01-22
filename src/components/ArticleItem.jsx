@@ -1,28 +1,28 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
+import { useSelector } from "react-redux";
 
-export default function ArticleItem() {
+export default function ArticleItem({ id, imageUrl, title, text }) {
+  const isAuth = useSelector((state) => state.user.isAuth);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   return (
     <>
       <div className="article">
-        <img
-          src="https://placehold.co/600x400/000000/ffffff/png"
-          alt="img"
-          className="article-img"
-        />
+        <img src={imageUrl} alt="img" className="article-img" />
         <div className="article-body">
-          <h3 className="article-title">Тестовый заголовок</h3>
-          <p className="article-text">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo
-            eligendi inventore quasi, molestias officiis voluptatum? Dicta ad
-            autem magni asperiores dolorum error corporis?
-          </p>
-          <Link to="/news" className="article-link">
-            Подробнее <IoIosArrowForward />
-          </Link>
+          <h3 className="article-title">{title}</h3>
+          <p className="article-text">{text}</p>
+          {isAuth ? (
+            <Link to={"/news/" + id} className="article-link">
+              Подробнее <IoIosArrowForward />
+            </Link>
+          ) : (
+            <div className="article-link" onClick={() => setModalIsOpen(true)}>
+              Подробнее <IoIosArrowForward />
+            </div>
+          )}
         </div>
       </div>
       {modalIsOpen && (
