@@ -1,20 +1,22 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/slices/userSlice";
+import {useNavigate} from "react-router-dom"
 
 export default function LoginPage() {
   const [input, setInput] = useState("");
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
+
     if (input) {
-      dispatch(login(input));
-      navigate("/");
+      dispatch(login(input))
+      navigate("/")
     } else {
-      alert('Заполните поле "Никнейм"!');
+      alert("Заполните имя!");
     }
   }
 

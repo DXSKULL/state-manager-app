@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import classNames from "classnames";
 import { MdOutlineLightMode, MdOutlineNightlight } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../redux/slices/themeSlice";
+import classNames from "classnames";
 
 export default function Header() {
   const isDark = useSelector((state) => state.theme.isDark);
-  const isAuth = useSelector((state) => state.user.isAuth);
+  const { isAuth } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   return (
     <header
       className={classNames("header", {
-        dark: isDark
+        dark: isDark,
       })}
     >
       <nav className="nav">

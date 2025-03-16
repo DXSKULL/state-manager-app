@@ -7,11 +7,12 @@ import ArticlePage from "../pages/ArticlePage";
 import { useSelector } from "react-redux";
 
 export default function AppRouter() {
-  const isAuth = useSelector((state) => state.user.isAuth);
+  const { isAuth } = useSelector((state) => state.user);
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/news" element={<NewsPage />} />
+
       {isAuth ? (
         <>
           <Route path="/profile" element={<ProfilePage />} />
@@ -21,6 +22,7 @@ export default function AppRouter() {
         <Route path="/login" element={<LoginPage />} />
       )}
       <Route path="*" element={<Navigate to="/" />} />
+      
     </Routes>
   );
 }

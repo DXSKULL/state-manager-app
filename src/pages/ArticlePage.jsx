@@ -4,8 +4,9 @@ import { useParams } from "react-router-dom";
 export default function ArticlePage() {
   const { id } = useParams();
   const data = useSelector((state) =>
-    state.news.items.find((it) => it.id === id)
+    state.news.items.find((item) => item.id === id)
   );
+  console.log(data);
 
   return (
     <div className="article-page">

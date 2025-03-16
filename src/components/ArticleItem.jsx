@@ -3,25 +3,34 @@ import { Link } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { useSelector } from "react-redux";
 
-export default function ArticleItem({ id, imageUrl, title, text }) {
-  const isAuth = useSelector((state) => state.user.isAuth);
+export default function ArticleItem({
+  articleId,
+  articleImg,
+  articleTitle,
+  articleDesc,
+}) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const { isAuth } = useSelector((state) => state.user);
 
   return (
     <>
       <div className="article">
-        <img src={imageUrl} alt="img" className="article-img" />
+        <img src={articleImg} alt="img" className="article-img" />
         <div className="article-body">
-          <h3 className="article-title">{title}</h3>
-          <p className="article-text">{text}</p>
+          <h3 className="article-title">{articleTitle}</h3>
+          <p className="article-text">{articleDesc}</p>
           {isAuth ? (
-            <Link to={"/news/" + id} className="article-link">
+            <Link to={`/news/${articleId}`} className="article-link">
               Подробнее <IoIosArrowForward />
             </Link>
           ) : (
-            <div className="article-link" onClick={() => setModalIsOpen(true)}>
+            <Link
+              to="/news"
+              className="article-link"
+              onClick={() => setModalIsOpen(true)}
+            >
               Подробнее <IoIosArrowForward />
-            </div>
+            </Link>
           )}
         </div>
       </div>

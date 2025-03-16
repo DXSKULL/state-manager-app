@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchNews } from "../redux/slices/newsSlice";
 
 export default function NewsPage() {
-  const dispatch = useDispatch();
-  const { items, isLoading, error } = useSelector((state) => state.news);
+  const { items, isLoading } = useSelector((state) => state.news);
+  console.log(items);
 
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchNews());
   }, [dispatch]);
@@ -14,23 +15,24 @@ export default function NewsPage() {
   return (
     <div className="news">
       <h1 className="title">Последние новости</h1>
-      {!items && isLoading && <p className="message">Загрузка...</p>}
-      {!items && error && <p className="message">Ошибка: {error}</p>}
       <div className="news-grid">
-        {items.map((item) => {
-          if (item.urlToImage) {
-            return (
-              <ArticleItem
-                imageUrl={item.urlToImage}gi
-                title={item.title}
-                text={item.description}
-                id={item.id}
-                key={item.id}
-              />
-            );
-          }
-          return null;
-        })}
+        {isLoading ? (
+          !items && <p className="message">Loading...</p>
+        ) : (
+          <>
+            {items.map(
+              (item) =>
+                item.urlToImage && (
+                  <ArticleItem
+                    articleId={item.id}
+                    articleImg={item.urlToImage}
+                    articleTitle={item.title}
+                    articleDesc={item.description}
+                  />
+                )
+            )}
+          </>
+        )}
       </div>
     </div>
   );

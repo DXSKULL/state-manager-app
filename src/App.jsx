@@ -1,26 +1,22 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import classNames from "classnames";
 import Header from "./components/Header";
 import AppRouter from "./components/AppRouter";
+import { useSelector } from "react-redux";
 
-// 1. Подключение темной темы
-// 2. Добавление авторизации
-// 3. Добавить запрос на сервер для получение новостей
+import classNames from "classnames";
+import { useEffect } from "react";
 
 export default function App() {
   const isDark = useSelector((state) => state.theme.isDark);
-
-  useEffect(() => {
-    document.body.style.background = isDark ? "#151515" : "#fff";
-  }, [isDark]);
-
+  useEffect(()=> {
+    document.body.style.background = isDark ? "#151515" : "#fff"
+  }, [isDark])
+  
   return (
     <>
       <Header />
       <div
         className={classNames("container", {
-          dark: isDark
+          dark: isDark,
         })}
       >
         <AppRouter />
